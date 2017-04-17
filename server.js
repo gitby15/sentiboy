@@ -2,7 +2,10 @@
  * Created by timl on 2017/4/17.
  */
 let koa = require('koa');
+let koaStatic = require('koa-static');
 let AV = require('leanengine');
+let req = require('request');
+
 
 AV.init({
 	appId: process.env.LEANCLOUD_APP_ID || 'usbJGVbiA5J2WA8s19H9cB1u-gzGzoHsz',
@@ -12,9 +15,9 @@ AV.init({
 
 let app = new koa();
 app.use(AV.koa());
-console.log(process.env.LEANCLOUD_APP_PORT);
-app.listen(process.env.LEANCLOUD_APP_PORT);
 
+// let currentPath = process.cwd();
+// app.use(koaStatic(currentPath));
 
 // x-response-time
 app.use(async function (ctx, next) {
@@ -24,7 +27,6 @@ app.use(async function (ctx, next) {
 	ctx.set('X-Response-Time', `${ms}ms`);
 });
 
-
 // logger
 app.use(async function (ctx, next) {
 	const start = new Date();
@@ -33,11 +35,26 @@ app.use(async function (ctx, next) {
 	console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
-app.use((contex)=> {
-	contex.body = JSON.stringify(contex, null, 2);
+// app.use((contex)=> {
+// 	contex.cusData = app.env;
+// 	contex.body = JSON.stringify(app.env, null, 2);
+// });
+let c = {};
+req.get('http://takeaway.dianping.com/waimai/newm').on('response', function (res) {
+	c = res;
+	//console.log(res);
 });
 
+let getBody = function () {
+	req('http://takeaway.dianping.com/waimai/newm', function (err, res, body) {
+		//console.log(body);
+		return body;
+	})
+};
 
+app.use(async function(c) {
+	c.body = await getBody();
+});
 
 //
 // app.use(function *(next) {
@@ -59,3 +76,6 @@ app.use((contex)=> {
 // 		yield next;
 // 	}
 // });
+
+
+app.listen(process.env.LEANCLOUD_APP_PORT);
