@@ -1,0 +1,28 @@
+{
+  "name": "sentiboy",
+  "version": "1.0.0",
+  "description": "sentry练手程序",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitby15/sentiboy.git"
+  },
+  "author": "Tim Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gitby15/sentiboy/issues"
+  },
+  "homepage": "https://github.com/gitby15/sentiboy#readme",
+  "dependencies": {
+    "express": "4.12.3",
+    "koa": "^2.2.0",
+    "leanengine": "next"
+  }
+}
