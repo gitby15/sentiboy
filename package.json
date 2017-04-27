@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "./node_modules/.bin/nodemon server.js"
+    "start": "node --inspect server.js",
+    "dev": "./node_modules/.bin/nodemon --inspect server.js"
   },
   "engines": {
     "node": ">=7"
@@ -23,9 +23,13 @@
   "homepage": "https://github.com/gitby15/sentiboy#readme",
   "dependencies": {
     "express": "4.12.3",
+    "http-proxy": "^1.16.2",
     "koa": "^2.2.0",
+    "koa-proxies": "^0.3.0",
+    "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
     "leanengine": "next",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
   }
 }
